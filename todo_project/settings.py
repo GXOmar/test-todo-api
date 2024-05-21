@@ -63,10 +63,20 @@ REST_FRAMEWORK = {
         # "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
         "rest_framework.permissions.IsAuthenticated"
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     # "DEFAULT_AUTHENTICATION_CLASSES": [
     #     "rest_framework.authentication.BasicAuthentication",
     #     # "rest_framework.authentication.SessionAuthentication",
     # ],
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Django DRF Todo API",
+    "DESCRIPTION": "testing a Todo API",
+    "VERSION": "0.0.1",
+    "SERVE_INCLUDE_SCHEMA": False,
+    # OTHER SETTINGS
 }
 
 TEMPLATES = [
