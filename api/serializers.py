@@ -13,7 +13,7 @@ class UserFilteredPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
         return queryset.filter(owner=request.user)
 
 
-class TodoSerializer(serializers.HyperlinkedModelSerializer):
+class TodoSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
     # tag = serializers.StringRelatedField(many=True, read_only=True)
     tag = UserFilteredPrimaryKeyRelatedField(queryset=Tag.objects.all(), many=True)
@@ -23,7 +23,7 @@ class TodoSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-class TagSerializer(serializers.HyperlinkedModelSerializer):
+class TagSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
@@ -31,7 +31,10 @@ class TagSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    todos = TodoSerializer(many=True)
+    tags = TagSerializer(many=True)
+
     class Meta:
         model = User
         fields = ["id", "username", "todos", "tags"]

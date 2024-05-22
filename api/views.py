@@ -20,6 +20,8 @@ def api_root(request):
             "todos": reverse("todos", request=request),
             "tags": reverse("tags", request=request),
             "user": reverse("user-detail", request=request),
+            "interactive api doc": reverse("swagger-ui", request=request),
+            "api docs": reverse("redoc", request=request),
         }
     )
 
@@ -91,7 +93,7 @@ class TagRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
 class UserDetailView(APIView):
     """
-    Retrieve User instance details and related data as hyperlinked relationship.
+    Retrieve User instance details and its related data.
 
     Authentication required.
     """
